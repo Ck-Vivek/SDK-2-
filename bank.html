@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBank - Your Digital Partner</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            background-color: #f8f9fa;
+        }
+
+        /* Welcome Section */
+        .welcome-container {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .welcome-container h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .welcome-container p {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .start-button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .start-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Banking UI */
+        .bank-container {
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .input-box {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            background: white;
+            padding: 0 5px;
+            font-size: 16px;
+            color: #888;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus + label,
+        .input-box input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+            color: #007bff;
+        }
+
+        .action-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .action-button:hover {
+            background-color: #218838;
+        }
+
+        .balance-box {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Section -->
+    <div class="welcome-container">
+        <h1>Welcome to SmartBank</h1>
+        <p>Your secure digital banking partner</p>
+        <button class="start-button" onclick="startBanking()">Get Started</button>
+    </div>
+
+    <!-- Banking UI -->
+    <div class="bank-container" id="bank-section">
+        <h2>Banking Actions</h2>
+
+        <div class="input-box">
+            <input type="text" id="name" placeholder=" " required>
+            <label>Enter your Name</label>
+        </div>
+
+        <div class="input-box">
+            <input type="email" id="email" placeholder=" " required>
+            <label>Enter your Email</label>
+        </div>
+
+        <div class="input-box">
+            <input type="number" id="accountNumber" placeholder=" " required>
+            <label>Enter Account Number</label>
+        </div>
+
+        <button class="action-button" onclick="createAccount()">Create Account</button>
+
+        <div class="input-box">
+            <input type="number" id="depositAmount" placeholder=" " required>
+            <label>Enter Deposit Amount</label>
+        </div>
+
+        <button class="action-button" onclick="depositMoney()">Deposit Money</button>
+
+        <div class="input-box">
+            <input type="number" id="withdrawAmount" placeholder=" " required>
+            <label>Enter Withdrawal Amount</label>
+        </div>
+
+        <button class="action-button" onclick="withdrawMoney()">Withdraw Money</button>
+
+        <button class="action-button" onclick="checkBalance()">Check Balance</button>
+
+        <div class="balance-box">Balance: $<span id="balanceDisplay">0</span></div>
+    </div>
+
+    <script>
+        let balance = 0;
+
+        function startBanking() {
+            document.querySelector(".welcome-container").style.display = "none";
+            document.getElementById("bank-section").style.display = "block";
+        }
+
+        function createAccount() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            alert("Account Created for " + name + " (" + email + ")");
+        }
+
+        function depositMoney() {
+            let amount = parseInt(document.getElementById("depositAmount").value);
+            balance += amount;
+            alert("Deposited: $" + amount);
+            document.getElementById("balanceDisplay").innerText = balance;
+        }
+
+        function withdrawMoney() {
+            let amount = parseInt(document.getElementById("withdrawAmount").value);
+            if (amount > balance) {
+                alert("Insufficient balance!");
+            } else {
+                balance -= amount;
+                alert("Withdrawn: $" + amount);
+                document.getElementById("balanceDisplay").innerText = balance;
+            }
+        }
+
+        function checkBalance() {
+            alert("Your balance is: $" + balance);
+        }
+    </script>
+
+</body>
+</html>
